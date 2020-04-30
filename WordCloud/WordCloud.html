@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<svg></svg>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
+<script src="static/d3.layout.cloud.js"></script>
+<script src="https://unpkg.com/compromise"></script>
+<script src="https://unpkg.com/compromise-numbers"></script>
+<script>
+    var fill = d3.scaleOrdinal(d3.schemeCategory10);
+    const text =
+        `The Zen of Python, by Tim Peters
+        Beautiful is better than ugly.
+        Explicit is better than implicit.
+        Simple is better than complex.
+        Complex is better than complicated.
+        Flat is better than nested.
+        Sparse is better than dense.
+        Readability counts.
+        Special cases aren't special enough to break the rules.
+        Although practicality beats purity.
+        Errors should never pass silently.
+        Unless explicitly silenced.
+        In the face of ambiguity, refuse the temptation to guess.
+        There should be one-- and preferably only one --obvious way to do it.
+        Although that way may not be obvious at first unless you're Dutch.
+        Now is better than never.
+        Although never is often better than *right* now.
+        If the implementation is hard to explain, it's a bad idea.
+        If the implementation is easy to explain, it may be a good idea.
+        Namespaces are one honking great idea -- let's do more of those!`
+
+    words = text.split(/[\s.]+/g)
+        .map(w => w.replace(/^[“‘"\-—()\[\]{}]+/g, ""))
+        .map(w => w.replace(/[;:.!?()\[\]{},"'’”\-—]+$/g, ""))
+        .map(w => w.replace(/['’]s$/g, ""))
+        .map(w => w.substring(0, 30))
+        .map(w => w.toLowerCase())
+
+    data = d3.rollups(words, group => group.length, w => w)
+        .sort(([, a], [, b]) => d3.descending(a, b))
+        .slice(0, 250)
+        .map(([text, size]) => ({ text, size }));
+
+    var layout = d3.layout.cloud()
+        .size([1000, 1000])
+        .words(data.map(d=>{return {'text':d.text, 'size':d.size + Math.random() * 80}}))
+        .rotate(function () { return ~~(Math.random() * 2) * 90; })
+        .font("Impact")
+        .fontSize(function (d) { return d.size; })
+        .on("end", draw);
+
+
+    layout.start();
+
+    //append()使用函数在指定元素的结尾添加内容
+    //transform:translate(x,y)  定义2d旋转，即平移，向右平移x,向下平移y
+    function draw(words) {
+        d3.select("body").append("svg")
+            .attr("width", 500)
+            .attr("height", 500)
+            .attr("style", "border:1px solid red")
+            .append("g")
+            .attr("transform", "translate(150,150)")
+            .selectAll("text")
+            .data(words)
+            .enter().append("text")
+            .style("border", "1px solid blue")
+            .style("font-size", function (d) { return d.size + "px"; })
+            .style("font-family", "Impact")
+            .style("fill", function (d, i) { return fill(i); })//fill 在前面15行定义为颜色集
+            .attr("text-anchor", "middle")
+            .attr("transform", function (d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+            })
+            .text(function (d) { return d.text; });
+    }
+
+</script>
