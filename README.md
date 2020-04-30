@@ -23,13 +23,13 @@ Visualization coding practices primarily using [D3](http://d3js.org).
   
   - results
   
-    <img src="F:\2019-2020(2)\iDVxLab\Practice\images\practice\ForceDirectedWithoutD3.jpg" style="zoom: 67%;" />
+    <img src="./images/practice/ForceDirectedWithoutD3.jpg" style="zoom: 67%;" />
     
     *Figure 1a. 30 nodes iterating 1000 times* 
   
 - With D3
 
-  <img src="F:\2019-2020(2)\iDVxLab\Practice\images\practice\ForceDirected-1.jpg" style="zoom:67%;" />
+  <img src="./images/practice/ForceDirected-1.jpg" style="zoom:67%;" />
   
     *Figure 1b. network of character co-occurence in Les Misérables illustrating with D3*
 
@@ -37,13 +37,13 @@ Visualization coding practices primarily using [D3](http://d3js.org).
 
 
 
-<img src="F:\2019-2020(2)\iDVxLab\Practice\images\practice\WordCloud.png" style="zoom: 67%;" />
+<img src="./images/practice/WordCloud.png" style="zoom: 67%;" />
 
 ​		*Figure 2 word cloud of "The Zen of Python, by Tim Peters"*
 
 ### Stacked Graph
 
-<img src="F:\2019-2020(2)\iDVxLab\Practice\images\practice\StackedGraph.png" style="zoom: 50%;" />
+<img src="./images/practice/StackedGraph.png" style="zoom: 50%;" />
 
 ​		*Figure 3 stacked(or stream) graph of randomly generalized data of 20 layers* 
 
